@@ -1,0 +1,43 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Movie List</title>
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+</head>
+<body>
+<h2>Data List</h2>
+<table>
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Title</th>
+        <th> Rating</th>
+        <th> Year</th>
+        <th> Language</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${movieList.empty}">
+        <td colspan="2"> No Books Available</td>
+    </tr>
+    <tr th:each="movie : ${movieList}">
+        <td><span th:text="${movieStat.index+1}"> N/A </span></td>
+        <td><span th:text="${movie.title}"> N/A </span></td>
+        <td><span th:text="${movie.rating}"> N/A </span></td>
+        <td><span th:text="${movie.year}"> N/A </span></td>
+        <td><span th:text="${movie.language}"> N/A </span></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="com.web.onlymovie"/>
+
+
+    <bean id="templateResolver"
+          class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+    </bean>
+
+    <bean id="templateEngine"
+          class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+    </bean>
+
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+    </bean>
+
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/onlymovie"/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+   <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+            name="factory">
+
+        <!-- data source -->
+        <property name="dataSource" ref="dataSource" />
+
+        <!-- hibernate properties -->
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+
+        <!-- annotated classes -->
+        <property name="annotatedClasses">
+            <list>
+                <value>com.web.onlymovie.model.Movie</value>
+            </list>
+        </property>
+
+    </bean>
+
+    <bean id="movieDao" class="com.web.onlymovie.dao.MovieDaoImp" />
+
+    <bean id="movieService" class="com.web.onlymovie.service.MovieServiceImp" />
+
+    <bean id="movieController" class="com.web.onlymovie.controller.MovieController" />
+
+    <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager"
+            name="transactionManager">
+        <property name="sessionFactory" ref="factory"/>
+    </bean>
+
+    <!-- Step 4: Enable configuration of transactional behavior based on annotations -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- Add support for reading web resources: css, images, js, etc ... -->
+    <mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+
+</beans>
