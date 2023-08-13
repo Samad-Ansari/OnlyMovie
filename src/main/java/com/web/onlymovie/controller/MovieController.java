@@ -21,8 +21,6 @@ public class MovieController {
     public String listMovies(Model model) {
         List<Movie> movies = movieService.getMovies();
         model.addAttribute("movieList", movies);
-        model.addAttribute("movie", movies.get(0));
-        model.addAttribute("name", "Samad");
         return "list-movies";
     }
 
