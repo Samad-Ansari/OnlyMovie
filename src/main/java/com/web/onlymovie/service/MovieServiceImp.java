@@ -36,4 +36,11 @@ public class MovieServiceImp implements MovieService {
     public Movie getMovie(int id) {
         return movieDao.getMovie(id);
     }
+
+    @Override
+    @Transactional
+    public List<Movie> searchByName(String key) {
+        return movieDao.searchByName(key);
+    }
+
 }

@@ -16,4 +16,6 @@ public interface MovieService {
 
     public Movie getMovie(int id);
 
+    public List<Movie> searchByName(String key);
+
 }

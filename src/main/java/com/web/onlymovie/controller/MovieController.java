@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.web.onlymovie.service.MovieService;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -25,9 +24,9 @@ public class MovieController {
     }
 
     @GetMapping("/showForm")
-    public String showFormForAdd(Model theModel) {
+    public String showFormForAdd(Model model) {
         Movie movie = new Movie();
-        theModel.addAttribute("movie", movie);
+        model.addAttribute("movie", movie);
         return "movie-form";
     }
 
@@ -39,9 +38,9 @@ public class MovieController {
 
     @GetMapping("/updateForm")
     public String showFormForUpdate(@RequestParam("movieId") int theId,
-                                    Model theModel) {
+                                    Model model) {
         Movie movie = movieService.getMovie(theId);
-        theModel.addAttribute("movie", movie);
+        model.addAttribute("movie", movie);
         return "movie-form";
     }
 
@@ -49,5 +48,12 @@ public class MovieController {
     public String deleteMovie(@RequestParam("movieId") int theId) {
         movieService.deleteMovie(theId);
         return "redirect:/movie/list";
+    }
+
+    @GetMapping("/search")
+    public String searchByName(@RequestParam("key") String title, Model model){
+        List<Movie> movies = movieService.searchByName(title);
+        model.addAttribute("movieList", movies);
+        return "search-movie";
     }
 }

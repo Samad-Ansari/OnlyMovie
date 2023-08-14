@@ -7,11 +7,14 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MovieDaoImp implements MovieDao{
 
     @Autowired
     private SessionFactory sessionFactory;
+
+    private static MovieDao movieDao = null;
 
     @Override
     public List<Movie> getMovies() {
@@ -37,5 +40,13 @@ public class MovieDaoImp implements MovieDao{
         Session session = sessionFactory.getCurrentSession();
         Movie movie = session.get(Movie.class, id);
         return movie;
+    }
+
+    public List<Movie> searchByName(String key){
+
+        List<Movie> movies =  getMovies();
+        System.out.println(movies);
+        List<Movie> result = movies.stream().filter(movie -> movie.getTitle().contains(key)).collect(Collectors.toList());
+        return movies;
     }
 }
