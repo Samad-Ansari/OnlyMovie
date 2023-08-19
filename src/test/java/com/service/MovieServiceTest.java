@@ -89,6 +89,7 @@ public class MovieServiceTest {
         assertEquals(movie.getLanguage(), result.getLanguage());
         assertEquals(movie.getUrl(), result.getUrl());
         assertEquals(movie.getImage(), result.getImage());
+
     }
 
 }
