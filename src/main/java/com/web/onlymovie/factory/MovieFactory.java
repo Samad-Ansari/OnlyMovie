@@ -40,7 +40,7 @@ public class MovieFactory {
         return movie;
     }
 
-    public List<Movie> searchByName(String key){
+    public List<Movie> searchByTitle(String key){
 
         List<Movie> movies =  getMovies();
         System.out.println(movies);
