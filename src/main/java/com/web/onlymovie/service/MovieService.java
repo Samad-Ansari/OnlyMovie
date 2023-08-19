@@ -41,8 +41,8 @@ public class MovieService {
     }
 
     @Transactional
-    public List<Movie> searchByName(String key) {
-        return movieFactory.searchByName(key);
+    public List<Movie> searchByTitle(String key) {
+        return movieFactory.searchByTitle(key);
     }
 
 }
