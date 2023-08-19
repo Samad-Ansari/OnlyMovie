@@ -1,4 +1,4 @@
-package com.web.onlymovie.dao;
+package com.web.onlymovie.factory;
 
 import com.web.onlymovie.model.Movie;
 import org.hibernate.Session;
@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MovieDaoImp implements MovieDao{
+public class MovieFactory {
 
     @Autowired
     private SessionFactory sessionFactory;
 
-    private static MovieDao movieDao = null;
+    private static MovieFactory movieFactory = null;
 
-    @Override
     public List<Movie> getMovies() {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery("From Movie");
@@ -24,7 +23,6 @@ public class MovieDaoImp implements MovieDao{
         return movies;
     }
 
-    @Override
     public void saveMovie(Movie movie) {
         Session session = sessionFactory.getCurrentSession();
         session.save(movie);

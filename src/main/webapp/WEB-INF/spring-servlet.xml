@@ -66,9 +66,9 @@
 
     </bean>
 
-    <bean id="movieDao" class="com.web.onlymovie.dao.MovieDaoImp" />
+    <bean id="movieFactory" class="com.web.onlymovie.factory.MovieFactory" />
 
-    <bean id="movieService" class="com.web.onlymovie.service.MovieServiceImp" />
+    <bean id="movieService" class="com.web.onlymovie.service.MovieService" />
 
     <bean id="movieController" class="com.web.onlymovie.controller.MovieController" />
 

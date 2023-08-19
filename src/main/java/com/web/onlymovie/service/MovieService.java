@@ -1,21 +1,48 @@
 package com.web.onlymovie.service;
 
+import com.web.onlymovie.factory.MovieFactory;
 import com.web.onlymovie.model.Movie;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-public interface MovieService {
+public class MovieService {
 
-    public List<Movie> getMovies();
+    @Autowired
+    private MovieFactory movieFactory;
 
-    public void saveMovie(Movie movie);
+    public MovieFactory getMovieFactory() {
+        return movieFactory;
+    }
 
-    public void deleteMovie(int id);
+    public void setMovieFactory(MovieFactory movieFactory) {
+        this.movieFactory = movieFactory;
+    }
 
-    public Movie getMovie(int id);
+    @Transactional
+    public List<Movie> getMovies() {
+        return movieFactory.getMovies();
+    }
 
-    public List<Movie> searchByName(String key);
+    @Transactional
+    public void saveMovie(Movie movie) {
+        movieFactory.saveMovie(movie);
+    }
+
+    @Transactional
+    public void deleteMovie(int id) {
+        movieFactory.deleteMovie(id);
+    }
+
+    @Transactional
+    public Movie getMovie(int id) {
+        return movieFactory.getMovie(id);
+    }
+
+    @Transactional
+    public List<Movie> searchByName(String key) {
+        return movieFactory.searchByName(key);
+    }
 
 }
