@@ -13,11 +13,13 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="com.web.onlymovie"/>
-
-
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="20848820"/>
+    </bean>
     <bean id="templateResolver"
           class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <property name="prefix" value="/WEB-INF/views/" />
@@ -27,11 +29,11 @@
 
     <bean id="templateEngine"
           class="org.thymeleaf.spring5.SpringTemplateEngine">
-        <property name="templateResolver" ref="templateResolver" />
+        <property name="templateResolver" ref="templateResolver"/>
     </bean>
 
     <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
-        <property name="templateEngine" ref="templateEngine" />
+        <property name="templateEngine" ref="templateEngine"/>
     </bean>
 
 
@@ -42,11 +44,11 @@
         <property name="password" value="123456"/>
     </bean>
 
-   <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
-            name="factory">
+    <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+          name="factory">
 
         <!-- data source -->
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
 
         <!-- hibernate properties -->
         <property name="hibernateProperties">
@@ -66,14 +68,14 @@
 
     </bean>
 
-    <bean id="movieFactory" class="com.web.onlymovie.factory.MovieFactory" />
+    <bean id="movieFactory" class="com.web.onlymovie.factory.MovieFactory"/>
 
-    <bean id="movieService" class="com.web.onlymovie.service.MovieService" />
+    <bean id="movieService" class="com.web.onlymovie.service.MovieService"/>
 
-    <bean id="movieController" class="com.web.onlymovie.controller.MovieController" />
+    <bean id="movieController" class="com.web.onlymovie.controller.MovieController"/>
 
     <bean class="org.springframework.orm.hibernate5.HibernateTransactionManager"
-            name="transactionManager">
+          name="transactionManager">
         <property name="sessionFactory" ref="factory"/>
     </bean>
 
