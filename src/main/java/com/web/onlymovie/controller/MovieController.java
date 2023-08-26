@@ -23,14 +23,14 @@ public class MovieController {
         return "list-movies";
     }
 
-    @GetMapping("/showForm")
+    @GetMapping("/show-form")
     public String showFormForAdd(Model model) {
         Movie movie = new Movie();
         model.addAttribute("movie", movie);
         return "movie-form";
     }
 
-    @PostMapping("/saveMovie")
+    @PostMapping("/save-movie")
     public String saveCustomer(@ModelAttribute("movie") Movie movie) {
         movieService.saveMovie(movie);
         return "redirect:/movie/list";
@@ -56,4 +56,5 @@ public class MovieController {
         model.addAttribute("movieList", movies);
         return "search-movie";
     }
+
 }
